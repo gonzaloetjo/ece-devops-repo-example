@@ -12,10 +12,14 @@ module.exports = {
     }
     // Save to DB
     // TODO check if user already exists
-    db.hmset(user.username, userObj, (err, res) => {
-      if (err) return callback(err, null)
-      callback(null, res) // Return callback
-    })
+    // If an error occurs, err will contain information about the error, 
+    // and result will typically be null or undefined.
+    // If the operation is successful, err will be null and result will contain the 
+    // data you're interested in.
+    db.hmset(user.username, userObj, (err, res) => {  // Using Redis' HMSET command
+      if (err) return callback(err, null)   // If there's an error, return the error through the provided callback.
+      callback(null, res)                   // Otherwise, return the result of the operation through the provided callback.
+    });
   },
   // get: (username, callback) => {
   //   // TODO create this method
